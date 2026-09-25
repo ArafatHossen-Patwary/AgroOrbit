@@ -1,3 +1,5 @@
+export const APP_BASE = '/app'
+
 export const navItems = [
   { id: 'overview', label: 'Overview', emoji: '🌍', path: 'overview', description: 'Mission control for your farm adaptation workspace.' },
   { id: 'nasa-intelligence', label: 'NASA Intelligence', emoji: '🛰', path: 'nasa-intelligence', description: 'Earth observation context for your fields.' },
