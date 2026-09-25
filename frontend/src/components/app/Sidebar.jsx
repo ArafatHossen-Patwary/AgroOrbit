@@ -5,23 +5,14 @@ import { navItems, toAppPath } from '../../navigation/navItems'
 
 export default function Sidebar({ className, onNavigate }) {
   return (
-    <aside
-      className={cn(
-        'flex h-full w-64 flex-col border-r border-white/10 bg-space-950/95',
-        className,
-      )}
-    >
+    <aside className={cn('flex h-full w-64 flex-col border-r border-white/10 bg-space-950/95', className)}>
       <div className="flex h-16 items-center gap-2.5 border-b border-white/10 px-5">
-        <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-orbit-green-500/30 bg-orbit-green-500/10 text-orbit-green-300">
+        <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-orbit-green-500/30 bg-orbit-green-500/10 text-orbit-green-300 shadow-glow-green">
           <Satellite className="h-4 w-4" />
         </span>
         <div className="min-w-0">
-          <p className="font-display text-base font-semibold tracking-tight text-space-50">
-            AgroOrbit
-          </p>
-          <p className="truncate text-[10px] uppercase tracking-[0.16em] text-orbit-cyan">
-            Field workspace
-          </p>
+          <p className="font-display text-base font-semibold tracking-tight text-space-50">AgroOrbit</p>
+          <p className="truncate text-[10px] uppercase tracking-[0.16em] text-orbit-cyan">Field workspace</p>
         </div>
       </div>
 
@@ -33,7 +24,7 @@ export default function Sidebar({ className, onNavigate }) {
             onClick={onNavigate}
             className={({ isActive }) =>
               cn(
-                'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors',
+                'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-all duration-200',
                 isActive
                   ? 'bg-orbit-green-500/15 text-orbit-green-300 shadow-[inset_0_0_0_1px_rgba(16,185,129,0.25)]'
                   : 'text-space-300 hover:bg-white/5 hover:text-space-50',
@@ -48,7 +39,7 @@ export default function Sidebar({ className, onNavigate }) {
         ))}
       </nav>
 
-      <div className="border-t border-white/10 px-4 py-3 text-[11px] text-space-500">
+      <div className="border-t border-white/10 px-4 py-3 text-[11px] uppercase tracking-[0.15em] text-space-500">
         NASA Space Apps · Field Shift
       </div>
     </aside>
