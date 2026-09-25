@@ -4,7 +4,7 @@ import { cn } from '../../lib/cn'
 
 const variants = {
   primary:
-    'bg-gradient-to-r from-orbit-green-600 to-orbit-green-500 text-white shadow-glow-green hover:from-orbit-green-500 hover:to-orbit-green-400 focus-visible:ring-orbit-green-400',
+    'bg-gradient-to-r from-orbit-green-600 to-orbit-green-500 text-white shadow-[0_0_24px_rgba(16,185,129,0.22)] hover:from-orbit-green-500 hover:to-orbit-green-400 focus-visible:ring-orbit-green-400',
   secondary:
     'bg-space-700/80 text-space-100 border border-white/10 hover:bg-space-600/80 hover:border-white/20 focus-visible:ring-orbit-blue-400',
   outline:
@@ -45,10 +45,11 @@ const Button = forwardRef(function Button(
       type={type}
       disabled={isDisabled}
       className={cn(
-        'inline-flex items-center font-medium transition-all duration-200',
+        'inline-flex items-center justify-center font-medium transition-all duration-200',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-void',
         'disabled:pointer-events-none disabled:opacity-50',
         'active:scale-[0.98]',
+        'hover:-translate-y-0.5',
         variants[variant],
         sizes[size],
         className,
