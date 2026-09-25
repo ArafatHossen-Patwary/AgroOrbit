@@ -4,14 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Field extends Model
 {
     use HasFactory;
 
-    /**
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
         'latitude',
@@ -21,9 +19,6 @@ class Field extends Model
         'current_crop',
     ];
 
-    /**
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -32,5 +27,10 @@ class Field extends Model
             'area' => 'float',
             'boundary' => 'array',
         ];
+    }
+
+    public function soilProfile(): HasOne
+    {
+        return $this->hasOne(SoilProfile::class);
     }
 }
