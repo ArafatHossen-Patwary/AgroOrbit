@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\CropController;
+use App\Http\Controllers\Api\FarmerPreferenceController;
 use App\Http\Controllers\Api\FieldController;
 use App\Http\Controllers\Api\HealthController;
 use App\Http\Controllers\Api\NASADataController;
@@ -13,4 +13,5 @@ Route::get('/nasa/observations', [NASADataController::class, 'index']);
 Route::get('/fields/{field}/soil-profile', [SoilProfileController::class, 'show']);
 Route::post('/fields/{field}/soil-profile', [SoilProfileController::class, 'store']);
 Route::put('/fields/{field}/soil-profile', [SoilProfileController::class, 'update']);
-Route::apiResource('crops', CropController::class)->only(['index', 'show']);
+Route::get('/fields/{field}/preferences', [FarmerPreferenceController::class, 'show']);
+Route::post('/fields/{field}/preferences', [FarmerPreferenceController::class, 'store']);

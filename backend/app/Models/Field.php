@@ -33,4 +33,9 @@ class Field extends Model
     {
         return $this->hasOne(SoilProfile::class);
     }
+
+    public function farmerPreference(): HasOne
+    {
+        return $this->hasOne(FarmerPreference::class);
+    }
 }

@@ -1,4 +1,3 @@
-import { BookOpen } from 'lucide-react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import DesignSystem from './pages/DesignSystem'
@@ -7,6 +6,7 @@ import {
   Compare,
   CropLibrary,
   DataSources,
+  FarmerPriorities,
   FieldTimeMachine,
   MyField,
   NasaIntelligence,
@@ -24,6 +24,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/design-system" element={<DesignSystem />} />
+
         <Route path="/app" element={<AppLayout />}>
           <Route index element={<Navigate to="overview" replace />} />
           <Route path="overview" element={<Overview />} />
@@ -31,6 +32,7 @@ export default function App() {
           <Route path="my-field" element={<MyField />} />
           <Route path="soil-profile" element={<SoilProfile />} />
           <Route path="crop-library" element={<CropLibrary />} />
+          <Route path="farmer-priorities" element={<FarmerPriorities />} />
           <Route path="rotation-lab" element={<RotationLab />} />
           <Route path="what-if" element={<WhatIf />} />
           <Route path="rotation-dna" element={<RotationDna />} />
@@ -39,6 +41,7 @@ export default function App() {
           <Route path="data-sources" element={<DataSources />} />
           <Route path="settings" element={<Settings />} />
         </Route>
+
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
