@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Sidebar from '../components/app/Sidebar'
@@ -25,15 +25,14 @@ export default function AppLayout() {
 
   return (
     <div className="min-h-screen bg-void text-space-100">
-      <div className="pointer-events-none fixed inset-0 bg-space-gradient opacity-80" aria-hidden />
+      <div className="pointer-events-none fixed inset-0 bg-space-gradient opacity-75" aria-hidden />
+      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.10),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(16,185,129,0.12),transparent_38%)]" aria-hidden />
 
       <div className="relative flex min-h-screen">
-        {/* Desktop sidebar */}
         <div className="sticky top-0 hidden h-screen shrink-0 lg:block">
           <Sidebar />
         </div>
 
-        {/* Mobile / tablet drawer */}
         <AnimatePresence>
           {drawerOpen && (
             <>
@@ -60,16 +59,9 @@ export default function AppLayout() {
         </AnimatePresence>
 
         <div className="relative flex min-w-0 flex-1 flex-col">
-          <TopNav
-            showMenuButton
-            onMenuClick={() => setDrawerOpen(true)}
-          />
+          <TopNav showMenuButton onMenuClick={() => setDrawerOpen(true)} />
 
-          <main
-            className={cn(
-              'flex-1 pb-24 lg:pb-8',
-            )}
-          >
+          <main className={cn('flex-1 pb-24 lg:pb-8')}>
             <Outlet />
           </main>
         </div>
