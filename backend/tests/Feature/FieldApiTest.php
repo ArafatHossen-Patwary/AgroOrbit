@@ -82,6 +82,12 @@ class FieldApiTest extends TestCase
             ->assertJsonPath('data.name', 'Show Me');
     }
 
+    public function test_missing_field_returns_json_not_found_response(): void
+    {
+        $this->getJson('/api/fields/999999')
+            ->assertNotFound();
+    }
+
     public function test_can_update_field(): void
     {
         $field = Field::query()->create([
@@ -100,6 +106,25 @@ class FieldApiTest extends TestCase
             ->assertJsonPath('data.current_crop', 'maize');
     }
 
+    public function test_update_field_validation_errors(): void
+    {
+        $field = Field::query()->create([
+            'name' => 'Valid Field',
+            'latitude' => 10,
+            'longitude' => 20,
+        ]);
+
+        $this->putJson("/api/fields/{$field->id}", [
+            'latitude' => -91,
+            'boundary' => [
+                ['lat' => 10, 'lng' => 20],
+                ['lat' => 11, 'lng' => 21],
+            ],
+        ])
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors(['latitude', 'boundary']);
+    }
+
     public function test_can_delete_field(): void
     {
         $field = Field::query()->create([
@@ -113,5 +138,11 @@ class FieldApiTest extends TestCase
             ->assertJsonPath('message', 'Field deleted successfully.');
 
         $this->assertDatabaseMissing('fields', ['id' => $field->id]);
+    }
+
+    public function test_missing_field_cannot_be_deleted(): void
+    {
+        $this->deleteJson('/api/fields/999999')
+            ->assertNotFound();
     }
 }
