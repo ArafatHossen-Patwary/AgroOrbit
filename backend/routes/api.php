@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\FarmerPreferenceController;
 use App\Http\Controllers\Api\FieldController;
 use App\Http\Controllers\Api\HealthController;
 use App\Http\Controllers\Api\NASADataController;
+use App\Http\Controllers\Api\RotationAnalysisController;
 use App\Http\Controllers\Api\SoilProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +16,4 @@ Route::post('/fields/{field}/soil-profile', [SoilProfileController::class, 'stor
 Route::put('/fields/{field}/soil-profile', [SoilProfileController::class, 'update']);
 Route::get('/fields/{field}/preferences', [FarmerPreferenceController::class, 'show']);
 Route::post('/fields/{field}/preferences', [FarmerPreferenceController::class, 'store']);
+Route::post('/fields/{field}/rotation-analysis', [RotationAnalysisController::class, 'store']);
