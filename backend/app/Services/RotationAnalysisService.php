@@ -60,8 +60,8 @@ class RotationAnalysisService
         $averages = $this->averageIndicators($indicators);
         $weights = $this->weights($preferences);
         $weightedContributions = [];
-        foreach ($weights as $key => $weight) {
-            $weightedContributions[$key] = round($averages[$key] * $weight, 4);
+        foreach ($averages as $key => $average) {
+            $weightedContributions[$key] = round($average * ($weights[$key] ?? 0), 4);
         }
 
         return [
@@ -98,7 +98,7 @@ class RotationAnalysisService
             'average_indicators' => $averages,
             'weighted_contributions' => $weightedContributions,
             'compatibility_index' => round(array_sum($weightedContributions) * 100, 2),
-            'calculation' => 'Each indicator is normalized to 0–100. Priority values are normalized so their sum is 1. The index is the weighted mean of the seven transparent indicator averages. Missing observations or user inputs receive neutral documented assumptions rather than invented measurements.',
+            'calculation' => 'Each indicator is normalized to 0–100. Priority values are normalized so their sum is 1. The index is the weighted mean of the seven transparent indicator averages.',
             'limitations' => [
                 'This is a decision-support indicator, not a scientifically validated crop-yield prediction.',
                 'Crop characteristics are reference database values, not NASA observations or laboratory measurements.',
@@ -128,7 +128,7 @@ class RotationAnalysisService
         return [
             'temperature_c' => $temperature !== null ? round((float) $temperature, 2) : null,
             'precipitation_mm' => $observations->where('variable', 'PRECTOTCORR')->isNotEmpty() ? round((float) $precipitation, 2) : null,
-            'solar_kwh_m2_day' => $solar !== null ? round((float) $solar, 2) : null,
+            'solar_mj_m2_day' => $solar !== null ? round((float) $solar, 2) : null,
             'observations_count' => $observations->count(),
             'source_status' => $observations->isEmpty() ? 'unavailable' : ($observations->contains(fn ($item) => str_contains($item->source, 'cached')) ? 'cached' : 'observed'),
             'source' => 'NASA POWER persisted observations',
@@ -140,12 +140,11 @@ class RotationAnalysisService
         $raw = [
             'water_compatibility' => $preferences?->water_conservation ?? 50,
             'soil_benefit' => $preferences?->soil_improvement ?? 50,
-            'yield_stability_indicator' => $preferences?->yield_stability ?? 50,
-            'economic_return' => $preferences?->economic_return ?? 50,
             'climate_compatibility' => $preferences?->climate_resilience ?? 50,
             'crop_diversity' => $preferences?->crop_diversity ?? 50,
             'heat_compatibility' => $preferences?->climate_resilience ?? 50,
             'drought_compatibility' => $preferences?->climate_resilience ?? 50,
+            'yield_stability_indicator' => (($preferences?->yield_stability ?? 50) + ($preferences?->economic_return ?? 50)) / 2,
         ];
         $sum = max(array_sum($raw), 1);
         $weights = [];
