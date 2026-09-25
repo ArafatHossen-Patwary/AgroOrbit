@@ -64,6 +64,10 @@ class NASAPowerProvider implements NASADataProvider
                 }
             }
 
+            if ($observations === []) {
+                throw new NASADataUnavailableException('NASA POWER returned no usable observations.');
+            }
+
             return $observations;
         } catch (\Throwable $exception) {
             Log::warning('NASA POWER request failed.', [
